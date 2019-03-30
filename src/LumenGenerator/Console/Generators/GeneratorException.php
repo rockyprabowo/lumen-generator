@@ -1,6 +1,6 @@
 <?php
 
-namespace Flipbox\LumenGenerator\Generators;
+namespace Flipbox\LumenGenerator\Console\Generators;
 
 class GeneratorException extends \Exception
 {

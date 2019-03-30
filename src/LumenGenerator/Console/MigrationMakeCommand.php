@@ -2,12 +2,14 @@
 
 namespace Flipbox\LumenGenerator\Console;
 
+use Flipbox\LumenGenerator\Console\Generators\Migrations\NameParser;
+use Flipbox\LumenGenerator\Console\Generators\Migrations\SchemaParser;
+use Flipbox\LumenGenerator\Console\Generators\Migrations\SyntaxBuilder;
 use Illuminate\Container\Container;
 use Illuminate\Support\Composer;
 use Illuminate\Filesystem\Filesystem;
-use Flipbox\LumenGenerator\Generators\Migrations\NameParser;
-use Flipbox\LumenGenerator\Generators\Migrations\SchemaParser;
-use Flipbox\LumenGenerator\Generators\Migrations\SyntaxBuilder;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class MigrationMakeCommand extends GeneratorCommand
 {
@@ -55,6 +57,11 @@ class MigrationMakeCommand extends GeneratorCommand
         parent::__construct($files);
 
         $this->composer = $composer;
+    }
+
+    protected function getStub()
+    {
+        return __DIR__ . '/Generators/stubs/migration.stub';
     }
 
     /**
@@ -169,7 +176,7 @@ class MigrationMakeCommand extends GeneratorCommand
      */
     protected function compileMigrationStub()
     {
-        $stub = $this->files->get(__DIR__ . '/../stubs/migration.stub');
+        $stub = $this->files->get($this->getStub());
 
         $this->replaceClassName($stub)
             ->replaceSchema($stub)

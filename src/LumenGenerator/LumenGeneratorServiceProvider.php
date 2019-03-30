@@ -46,7 +46,7 @@ class LumenGeneratorServiceProvider extends ServiceProvider
         'Serve' => 'command.serve',
         'TestMake' => 'command.test.make',
         'ResourceMake' => 'command.resource.make',
-        'MigrationMake' => 'command.migrate.make',
+        'SchemeMigrationMake' => 'command.migrate.scheme.make',
         'PivotMigrationMake' => 'command.migrate.pivot.make'
     ];
 
@@ -270,19 +270,19 @@ class LumenGeneratorServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the make:migration generator.
+     * Register the make:migration:scheme command.
      */
-    protected function registerMigrationGenerator()
+    protected function registerSchemeMigrationMakeCommand()
     {
-        $this->app->singleton('command.migrate.make', function ($app) {
+        $this->app->singleton('command.migrate.scheme.make', function ($app) {
             return new Console\MigrationMakeCommand($app['files'], $app['composer']);
         });
     }
 
     /**
-     * Register the make:pivot generator.
+     * Register the make:migrate:pivot command.
      */
-    protected function registerPivotMigrationGenerator()
+    protected function registerPivotMigrationMakeCommand()
     {
         $this->app->singleton('command.migrate.pivot.make', function ($app) {
             return new Console\PivotMigrationMakeCommand($app['files'], $app['composer']);

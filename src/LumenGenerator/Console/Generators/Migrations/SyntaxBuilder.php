@@ -1,6 +1,6 @@
 <?php
 
-namespace Flipbox\LumenGenerator\Generators\Migrations;
+namespace Flipbox\LumenGenerator\Console\Generators\Migrations;
 
 use Flipbox\LumenGenerator\Generators\GeneratorException;
 
