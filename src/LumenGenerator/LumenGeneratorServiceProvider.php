@@ -46,6 +46,8 @@ class LumenGeneratorServiceProvider extends ServiceProvider
         'Serve' => 'command.serve',
         'TestMake' => 'command.test.make',
         'ResourceMake' => 'command.resource.make',
+        'MigrationMake' => 'command.migrate.make',
+        'PivotMigrationMake' => 'command.migrate.pivot.make'
     ];
 
     /**
@@ -111,7 +113,7 @@ class LumenGeneratorServiceProvider extends ServiceProvider
         $this->app->singleton('command.optimize', function ($app) {
             $app->configure('compile');
 
-            $app['config']->set('optimizer', require_once(__DIR__.'/config/optimizer.php'));
+            $app['config']->set('optimizer', require_once(__DIR__ . '/config/optimizer.php'));
 
             return new Console\OptimizeCommand(new Composer($app['files']));
         });
@@ -220,16 +222,6 @@ class LumenGeneratorServiceProvider extends ServiceProvider
     /**
      * Register the command.
      */
-    protected function registerSeederMakeCommand()
-    {
-        $this->app->singleton('command.seeder.make', function ($app) {
-            return new Console\SeederMakeCommand($app['files']);
-        });
-    }
-
-    /**
-     * Register the command.
-     */
     protected function registerServeCommand()
     {
         $this->app->singleton('command.serve', function () {
@@ -274,6 +266,26 @@ class LumenGeneratorServiceProvider extends ServiceProvider
     {
         $this->app->singleton('command.notification.table', function ($app) {
             return new Console\NotificationTableCommand($app['files'], $app['composer']);
+        });
+    }
+
+    /**
+     * Register the make:migration generator.
+     */
+    protected function registerMigrationGenerator()
+    {
+        $this->app->singleton('command.migrate.make', function ($app) {
+            return new Console\MigrationMakeCommand($app['files'], $app['composer']);
+        });
+    }
+
+    /**
+     * Register the make:pivot generator.
+     */
+    protected function registerPivotMigrationGenerator()
+    {
+        $this->app->singleton('command.migrate.pivot.make', function ($app) {
+            return new Console\PivotMigrationMakeCommand($app['files'], $app['composer']);
         });
     }
 
