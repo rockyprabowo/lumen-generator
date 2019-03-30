@@ -40,7 +40,6 @@ make:migration    Create a new migration file
 make:model        Create a new Eloquent model class
 make:policy       Create a new policy class
 make:provider     Create a new service provider class
-make:seeder       Create a new seeder class
 make:test         Create a new test class
 ```
 
@@ -58,9 +57,10 @@ route:list        Display all registered routes.
 
 ## Tinker `include` Argument Usage
 
-`php artisan tinker path/to/tinker/script.php` 
+`php artisan tinker path/to/tinker/script.php`
 
 script.php example:
+
 ```
 $environment = app()->environment();
 $output = new Symfony\Component\Console\Output\ConsoleOutput();
